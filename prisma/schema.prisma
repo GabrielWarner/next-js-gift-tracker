@@ -14,7 +14,7 @@ model User {
   email      String   @unique
   wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
   persons    Person[]
-  wishlistId Int      @unique // This field is necessary to establish the 1-1 relationship
+  wishlistId Int      @unique
 }
 
 model Wishlist {
@@ -30,9 +30,9 @@ model Person {
   birthday   DateTime
   imageUrl   String?  @db.VarChar(255)
   user       User     @relation(fields: [userId], references: [id])
-  userId     Int // This establishes the many-1 relationship to User
-  wishlist   Wishlist @relation(fields: [wishlistId], references: [id]) // This establishes the 1-1 relationship to Wishlist
-  wishlistId Int      @unique // This field is necessary to establish the 1-1 relationship
+  userId     Int
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
+  wishlistId Int      @unique
 }
 
 model Gift {
@@ -41,6 +41,6 @@ model Gift {
   price      Float
   url        String?  @db.VarChar(255)
   imageUrl   String?  @db.VarChar(255)
-  wishlistId Int // This establishes the many-1 relationship to Wishlist
+  wishlistId Int
   wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
 }
