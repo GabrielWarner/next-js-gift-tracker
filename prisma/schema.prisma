@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL")
+  directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  email      String   @unique
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
+  persons    Person[]
+  wishlistId Int      @unique // This field is necessary to establish the 1-1 relationship
+}
+
+model Wishlist {
+  id     Int     @id @default(autoincrement())
+  user   User?
+  person Person?
+  gifts  Gift[]
+}
+
+model Person {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  birthday   DateTime
+  imageUrl   String?  @db.VarChar(255)
+  user       User     @relation(fields: [userId], references: [id])
+  userId     Int // This establishes the many-1 relationship to User
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id]) // This establishes the 1-1 relationship to Wishlist
+  wishlistId Int      @unique // This field is necessary to establish the 1-1 relationship
+}
+
+model Gift {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(255)
+  price      Float
+  url        String?  @db.VarChar(255)
+  imageUrl   String?  @db.VarChar(255)
+  wishlistId Int // This establishes the many-1 relationship to Wishlist
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
+}

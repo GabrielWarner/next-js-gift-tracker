@@ -10,7 +10,7 @@ export default function Form() {
         {/* Person Name */}
         <div className="mb-4">
           <label htmlFor="person-name" className="mb-2 block text-sm font-medium">
-            Person's Name
+            Persons Name
           </label>
           <div className="relative">
             <input
