@@ -1,6 +1,11 @@
 import Link from 'next/link'
 import { Button } from '@/components/button'
-export default function Page() {
+import { getUsersPersons } from '@/app/lib/data'
+
+export default async function Page() {
+  const users = await getUsersPersons(1)
+  console.log(users)  //TODO: fetch all necessary data after obtaining UserID from authentication
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-start p-24">
       <h1>Home Page</h1>
