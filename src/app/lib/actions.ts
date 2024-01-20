@@ -35,7 +35,7 @@ export async function AddPerson(userId: string, formData: FormData) {
                 name: name,
                 birthday: birthday,
                 imageUrl: imageUrl,
-                userId: parseInt(userId, 10),
+                userId: userId,
                 wishlistId: newWishlist.id,
             },
         });
