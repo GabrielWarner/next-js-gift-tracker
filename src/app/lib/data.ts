@@ -10,13 +10,20 @@ import {
 
 const prisma = new PrismaClient();
 
-export async function getUsers() {
+export async function getUser( id ) {
     // Add noStore() here prevent the response from being cached.
     // Meaning this function is not static
     noStore()
     try {
-        const users = await prisma.user.findMany();
-        return users; // Return the fetched users
+        const user = await prisma.user.findUnique({
+            where: {
+                id: id
+            },
+            include: {
+                persons: true
+            }
+        });
+        return user; // Return the fetched users
     } catch (error) {
         console.error("Error fetching users:", error);
         throw error;
@@ -24,14 +31,14 @@ export async function getUsers() {
 }
 
 
-export async function getUsersPersons( id: number ) {
+export async function getUsersPersons( email: string ) {
     // Add noStore() here prevent the response from being cached.
     // Meaning this function is not static
     noStore()
     try {
         const users = await prisma.user.findUnique({
             where: {
-                id: id,
+                email: email,
             },
             include: {
                 persons: true
