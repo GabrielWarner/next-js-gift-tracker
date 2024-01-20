@@ -29,7 +29,7 @@ model Wishlist {
 }
 
 model Person {
-  id         Int      @id @default(autoincrement())
+  id         String   @id @default(cuid())
   name       String   @db.VarChar(255)
   birthday   DateTime
   imageUrl   String?  @db.VarChar(255)
@@ -49,6 +49,7 @@ model Gift {
   wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
 }
 
+// TODO: The Account data object should be storing the Person
 model Account {
   id                String  @id @default(cuid())
   userId            String
