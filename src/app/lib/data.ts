@@ -10,7 +10,7 @@ import {
 
 const prisma = new PrismaClient();
 
-export async function getUser( id ) {
+export async function getUser( id: string | undefined ) {
     // Add noStore() here prevent the response from being cached.
     // Meaning this function is not static
     noStore()
