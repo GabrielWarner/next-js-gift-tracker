@@ -13,8 +13,6 @@ const addPersonFormSchema = z.object({
     imageUrl: z.coerce.string().optional(),
   });
 
-// When a user signs up with AuthO we create a new user in the database using their name and email
-// We can then use the users email to fetch the User data, extract the userId and then use that to add a person
 
 export async function AddPerson(userId: string, formData: FormData) {
     const { name, birthday, imageUrl } = addPersonFormSchema.parse({
@@ -46,3 +44,6 @@ export async function AddPerson(userId: string, formData: FormData) {
         throw error;
     }
 }
+
+
+
