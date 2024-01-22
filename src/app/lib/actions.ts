@@ -13,8 +13,8 @@ const addPersonFormSchema = z.object({
     imageUrl: z.coerce.string().optional(),
   });
 
-
-export async function AddPerson(userId: string, formData: FormData) {
+// Function to add a person to a User
+export async function addPersonToUser(userId: string, formData: FormData) {
     const { name, birthday, imageUrl } = addPersonFormSchema.parse({
         name: formData.get('name'),
         birthday: formData.get('birthday'),
@@ -45,5 +45,26 @@ export async function AddPerson(userId: string, formData: FormData) {
     }
 }
 
+// TODO: Function to add a gift to a Users Wishlist
+// requires userId
+export async function  addGiftToUserWishlist() {
 
+}
 
+// TODO: Function to edit a users gift on their wishlist
+// requires userId and giftId
+export async function editUserGift () {
+
+}
+
+// TODO: Function to add gift to Person
+// Requires personId and giftId
+export async function addGiftToPersonWishlist () {
+
+}
+
+// TODO: Function to update a persons gift
+// Requires personId and giftId
+export async function editPersonGift () {
+
+}

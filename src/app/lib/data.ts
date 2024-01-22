@@ -10,7 +10,7 @@ import {
 
 const prisma = new PrismaClient();
 
-export async function getUser( id: string | undefined ) {
+export async function fetchUser( id: string | undefined ) {
     // Add noStore() here prevent the response from being cached.
     // Meaning this function is not static
     noStore()
@@ -31,7 +31,7 @@ export async function getUser( id: string | undefined ) {
 }
 
 
-export async function getUsersPersons( email: string ) {
+export async function fetchUsersPersons( email: string ) {
     // Add noStore() here prevent the response from being cached.
     // Meaning this function is not static
     noStore()
@@ -49,4 +49,28 @@ export async function getUsersPersons( email: string ) {
         console.error("Error fetching users:", error);
         throw error;
     }
+}
+
+// TODO: Function to fetch a users Wishlist
+// requres userId
+export async function fetchUserWishlist () {
+
+}
+
+// TODO: Function to fetch a tracked persons gifts
+// requires personId
+export async function fetchPersoWishlist () {
+
+}
+
+// TODO: Function to fetch a Users Gift from Wishlist
+// requires userId and giftId
+export async function fetchUserGift () {
+
+}
+
+// TODO: Function to fetch a Persons Gift
+// requires personId and giftId
+export async function fetchPersonGift () {
+
 }
