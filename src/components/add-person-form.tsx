@@ -4,8 +4,8 @@ import { Button } from '@/components/button';
 import Link from 'next/link';
 import { AddPerson } from '@/app/lib/actions';
 
-export default function Form() {
-  const AddPersonToUserID = AddPerson.bind(null, '1');
+export default function Form({ id }: { id: string }) {
+  const AddPersonToUserID = AddPerson.bind(null, id);
   return (
     <form action={AddPersonToUserID}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
