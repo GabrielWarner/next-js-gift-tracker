@@ -1,10 +1,16 @@
 import SideNav from '@/components/sidenav'
+import { auth } from '../../../auth';
+import { redirect } from 'next/navigation';
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth()
+  if (!session) {
+    redirect('/')
+  }
   return (
     <div className='flex h-screen flex-col md:flex-row md:overflow-hidden'>
         <div className='w-full flex-none md:w-64'>
