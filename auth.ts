@@ -1,13 +1,21 @@
 import NextAuth, { type Session, type User } from "next-auth";
 import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { PrismaClient, User as PrismaUser } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+import { AdapterUser } from "@auth/core/adapters";
 
 const prisma = new PrismaClient();
 
 declare module "next-auth" {
   interface Session {
     userId: string | undefined;
+    userWishlistId: number | null;
+  }
+}
+
+declare module "@auth/core/adapters" {
+  interface AdapterUser {
+    wishlistId: number | null
   }
 }
 
@@ -23,14 +31,15 @@ export const {
     }),
   ],
   callbacks: {
-    // include userId with session
-    async session({ session, user }: { session: Session; user?: User }) {
+    // include userId and wishlistId with session
+    async session({ session, user }: { session: Session; user?: AdapterUser }) {
       if (user) {
         session.userId = user.id;
+        session.userWishlistId = user.wishlistId
       }
       return session;
     },
-    // redirects user to home page after successful sign in
+    // redirects user to home page after successful sign ind
     async redirect({ url, baseUrl }) {
       return baseUrl + '/home'
     },
@@ -50,7 +59,7 @@ export const {
         console.error('Database Error:', error);
         throw new Error('Failed to fetch create user data.');
       }
-    },
+    }
   }
 });
 
