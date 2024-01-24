@@ -7,6 +7,7 @@ import {
     WishList,
     Gift,
 } from '@/app/lib/definitions'
+import { auth } from '../../../auth';
 
 const prisma = new PrismaClient();
 
@@ -51,10 +52,24 @@ export async function fetchUsersPersons( email: string ) {
     }
 }
 
-// TODO: Function to fetch a users Wishlist
-// requres userId
+// Function to fetch a users Wishlist
 export async function fetchUserWishlist () {
-
+    const session = await auth()
+    try{
+        const wishlistId = session?.userWishlistId ?? undefined;
+        const wishlist = await prisma.wishlist.findUnique({
+            where: {
+                id: wishlistId
+            },
+            include: {
+                gifts: true
+            }
+        })
+        return wishlist
+    } catch (error) {
+        console.error("Error fetching gifts:", error);
+        throw error;
+    }
 }
 
 // TODO: Function to fetch a tracked persons gifts

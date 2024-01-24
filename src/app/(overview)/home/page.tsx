@@ -1,9 +1,6 @@
 import Link from 'next/link'
 import { Button } from '@/components/button'
-import { auth } from '../../../../auth'
 export default async function Page() {
-  const session = await auth()
-  console.log(session)
   return (
     <main className="flex min-h-screen flex-col items-center justify-start p-24">
       <h1>Home Page</h1>

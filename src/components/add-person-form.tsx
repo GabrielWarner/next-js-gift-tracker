@@ -2,10 +2,10 @@
 import { UserCircleIcon, CalendarIcon, PhotoIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/button';
 import Link from 'next/link';
-import { AddPerson } from '@/app/lib/actions';
+import { addPersonToUser } from '@/app/lib/actions';
 
 export default function Form({ id }: { id: string }) {
-  const AddPersonToUserID = AddPerson.bind(null, id);
+  const AddPersonToUserID = addPersonToUser.bind(null, id);
   return (
     <form action={AddPersonToUserID}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
