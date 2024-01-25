@@ -16,7 +16,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      {/* TODO: CREATE SIDENAV */}
       <body className={inter.className}>{children}</body>
     </html>
   )
