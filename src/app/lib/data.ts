@@ -66,6 +66,10 @@ export async function fetchUserWishlist () {
                 gifts: true
             }
         })
+        if (!wishlist) {
+            throw new Error('Wishlist not found');
+        }
+
         return wishlist
     } catch (error) {
         console.error("Error fetching gifts:", error);

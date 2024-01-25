@@ -7,8 +7,6 @@ import Link from "next/link";
 export default async function Page() {
   const data = await fetchUsersPersons()
   const people = data?.persons
-  // console.log(people)
-  console.log(people)
     return (
       <main className="flex min-h-screen flex-col items-center justify-between p-24">
         <section>

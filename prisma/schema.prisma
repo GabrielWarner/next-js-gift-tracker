@@ -43,7 +43,7 @@ model Gift {
   id         Int      @id @default(autoincrement())
   name       String   @db.VarChar(255)
   price      Float
-  url        String?  @db.VarChar(255)
+  url        String?  @db.VarChar(255) @unique
   imageUrl   String?  @db.VarChar(255)
   wishlistId Int
   wishlist   Wishlist @relation(fields: [wishlistId], references: [id])

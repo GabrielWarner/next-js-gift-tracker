@@ -14,6 +14,13 @@ const addPersonFormSchema = z.object({
     imageUrl: z.coerce.string().optional(),
   });
 
+const addUserGiftForm = z.object({
+    name: z.string(),
+    price: z.coerce.number(),
+    url: z.string().optional(),
+    imageUrl: z.coerce.string().optional(),
+});
+
 // Function to add a person to a User
 export async function addPersonToUser(formData: FormData) {
     const session = await auth()
@@ -56,7 +63,40 @@ export async function addPersonToUser(formData: FormData) {
 
 // TODO: Function to add a gift to a Users Wishlist
 // requires userId
-export async function  addGiftToUserWishlist() {
+export async function  addGiftToUserWishlist(formData: FormData) {
+    const session = await auth()
+    const wishlistId = session?.userWishlistId
+
+    // Ensure userId is a string
+    if (typeof wishlistId !== 'number') {
+        throw new Error('Invalid user ID: User ID must be a string');
+    }
+
+    const { name, price, url, imageUrl } = addUserGiftForm.parse({
+        name: formData.get('name'),
+        price: formData.get('price'),
+        url: formData.get('url'),
+        imageUrl: formData.get('image')
+        });
+
+    
+    try {
+        const gift = await prisma.gift.create({
+            data: {
+                name: name,
+                price: price,
+                wishlistId: wishlistId,
+                url: url,
+                imageUrl: imageUrl
+            }  
+        })
+        revalidatePath('/wishlist');
+        redirect('/wishlist');
+    } catch (error) {
+        console.error("Error adding gift to wishlist:", error);
+        throw error;
+    }
+
 
 }
 
