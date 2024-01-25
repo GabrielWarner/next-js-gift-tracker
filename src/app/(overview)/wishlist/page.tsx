@@ -1,6 +1,6 @@
 import Search from "@/components/search-bar"
 import { AddUserGift } from '@/components/buttons'
-import UserWishlistTable from '@/components/tables'
+import { UserWishlistTable } from '@/components/tables'
 
 export default async function Page() {
     return (

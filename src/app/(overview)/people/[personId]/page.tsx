@@ -1,8 +1,13 @@
-export default function Page() {
+import { fetchPersonGifts } from "@/app/lib/data";
+export default async function Page({ params }: { params: { personId: string } }) {
+      const { gifts } = await fetchPersonGifts(params.personId)
     return (
-      <main className="flex min-h-screen flex-col items-center justify-between p-24">
-        <div>Person Table of Gifts</div>
+      <main>
+        <div>Page to display gifts for tracked person</div>
+        {/*GIFTS WILL BE RENDERED HERE*/}
       </main>
     )
   }
   
+
+

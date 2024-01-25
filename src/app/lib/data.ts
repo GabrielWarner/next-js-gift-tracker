@@ -77,10 +77,35 @@ export async function fetchUserWishlist () {
     }
 }
 
-// TODO: Function to fetch a tracked persons gifts
+// Function to fetch a tracked persons gifts
 // requires personId
-export async function fetchPersoWishlist () {
+export async function fetchPersonGifts ( id: string ) {
+    const session = await auth()
 
+    try{
+        const personWithWishlist = await prisma.person.findUnique({
+            where: {
+                id: parseInt(id),
+            },
+            include: {
+                wishlist: {
+                    include: {
+                        gifts: true,
+                    },
+                },
+            },
+        });
+
+        if (!personWithWishlist || !personWithWishlist.wishlist) {
+            throw new Error('Wishlist not found');
+        }
+
+        const { wishlist } = personWithWishlist;
+        return wishlist
+    } catch(error){
+        console.error("Error fetching person's wishlist:", error);
+        throw error;
+    }
 }
 
 // TODO: Function to fetch a Users Gift from Wishlist
