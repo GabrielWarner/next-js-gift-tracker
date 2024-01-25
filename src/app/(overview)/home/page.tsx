@@ -11,7 +11,7 @@ export default async function Page() {
           </Link>
         </Button>
         <Button className='m-3'>
-          <Link href='wishlist/add'>
+          <Link href='people/add'>
             <span>Add Person</span>
           </Link>
         </Button>
