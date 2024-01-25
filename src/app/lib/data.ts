@@ -32,14 +32,15 @@ export async function fetchUser( id: string | undefined ) {
 }
 
 
-export async function fetchUsersPersons( email: string ) {
+export async function fetchUsersPersons() {
     // Add noStore() here prevent the response from being cached.
     // Meaning this function is not static
     noStore()
+    const session = await auth()
     try {
         const users = await prisma.user.findUnique({
             where: {
-                email: email,
+                id: session?.userId
             },
             include: {
                 persons: true

@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client'
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { auth } from '../../../auth';
 
 const prisma = new PrismaClient();
 
@@ -14,7 +15,15 @@ const addPersonFormSchema = z.object({
   });
 
 // Function to add a person to a User
-export async function addPersonToUser(userId: string, formData: FormData) {
+export async function addPersonToUser(formData: FormData) {
+    const session = await auth()
+    const userId = session?.userId
+
+    // Ensure userId is a string
+    if (typeof userId !== 'string') {
+        throw new Error('Invalid user ID: User ID must be a string');
+    }
+    
     const { name, birthday, imageUrl } = addPersonFormSchema.parse({
         name: formData.get('name'),
         birthday: formData.get('birthday'),
