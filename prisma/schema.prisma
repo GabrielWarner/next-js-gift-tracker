@@ -17,12 +17,12 @@ model User {
   accounts      Account[]
   sessions      Session[]
   persons       Person[]
-  wishlistId    String?       @unique
+  wishlistId    Int?       @unique
   wishlist      Wishlist?  @relation(fields: [wishlistId], references: [id])
 }
 
 model Wishlist {
-  id     String     @id @default(cuid())
+  id     Int     @id @default(autoincrement())
   user   User?
   person Person?
   gifts  Gift[]
@@ -36,7 +36,7 @@ model Person {
   user       User     @relation(fields: [userId], references: [id])
   userId     String
   wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
-  wishlistId String      @unique
+  wishlistId Int      @unique
 }
 
 model Gift {
@@ -45,7 +45,7 @@ model Gift {
   price      Float
   url        String?  @db.VarChar(255) @unique
   imageUrl   String?  @db.VarChar(255)
-  wishlistId String
+  wishlistId Int
   wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
 }
 
