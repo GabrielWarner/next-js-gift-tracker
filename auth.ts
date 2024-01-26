@@ -54,9 +54,7 @@ export const {
       try{
         await prisma.wishlist.create({
           data: {
-            user: {
-              connect: { id: message.user.email }
-            }
+            userId: message.user.id
           }
         })
       } catch(error) {
