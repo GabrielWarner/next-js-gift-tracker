@@ -47,6 +47,9 @@ export const {
   events: {
     // event to create and connect Wishlist object to new User
     createUser:async ( message: { user: User }) => {
+      if(!message.user.id){
+        throw new Error('User ID not found!');
+      }
       try{
         await prisma.wishlist.create({
           data: {
