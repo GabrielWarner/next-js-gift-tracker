@@ -37,7 +37,7 @@ export async function UserWishlistTable() {
 
 export async function PeopleTable() {
   const data = await fetchUsersPersons()
-  const people = data?.persons
+  const people = data?.people
     return (
         <table className="min-w-full text-gray-900 md:table border-spacing-1 outline">
             <thead className="bg-white">

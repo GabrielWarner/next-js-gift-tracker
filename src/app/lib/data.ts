@@ -21,7 +21,7 @@ export async function fetchUser( id: string | undefined ) {
                 id: id
             },
             include: {
-                persons: true
+                people: true
             }
         });
         return user; // Return the fetched users
@@ -43,7 +43,7 @@ export async function fetchUsersPersons() {
                 id: session?.userId
             },
             include: {
-                persons: true
+                people: true
             }
         });
         return users; // Return the fetched users
