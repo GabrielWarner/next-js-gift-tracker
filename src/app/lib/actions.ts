@@ -68,7 +68,7 @@ export async function  addGiftToUserWishlist(formData: FormData) {
     const wishlistId = session?.userWishlistId
 
     // Ensure userId is a string
-    if (typeof wishlistId !== 'number') {
+    if (typeof wishlistId !== 'string') {
         throw new Error('Invalid user ID: User ID must be a string');
     }
 
