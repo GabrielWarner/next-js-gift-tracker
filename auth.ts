@@ -9,13 +9,13 @@ const prisma = new PrismaClient();
 declare module "next-auth" {
   interface Session {
     userId: string | undefined;
-    userWishlistId: number | null;
+    userWishlistId: string | null;
   }
 }
 
 declare module "@auth/core/adapters" {
   interface AdapterUser {
-    wishlistId: number | null
+    wishlistId: string | null
   }
 }
 
@@ -48,10 +48,10 @@ export const {
     // event to create and connect Wishlist object to new User
     createUser:async ( message: { user: User }) => {
       console.log(message.user)
+      console.log('creating wishlist')
       if(!message.user.id){
         throw new Error('User ID not found!');
       }
-      try{
         await prisma.wishlist.create({
           data: {
             user: {
@@ -59,10 +59,6 @@ export const {
             }
           }
         })
-      } catch(error) {
-        console.error('Database Error:', error);
-        throw new Error('Failed to fetch create user data.');
-      }
     }
   }
 });

@@ -1,12 +1,6 @@
 'use server'
 import { PrismaClient } from '@prisma/client'
 import { unstable_noStore as noStore } from 'next/cache';
-import {
-    User,
-    Person,
-    WishList,
-    Gift,
-} from '@/app/lib/definitions'
 import { auth } from '../../../auth';
 
 const prisma = new PrismaClient();
@@ -85,7 +79,7 @@ export async function fetchPersonGifts ( id: string ) {
     try{
         const personWithWishlist = await prisma.person.findUnique({
             where: {
-                id: parseInt(id),
+                id: id,
             },
             include: {
                 wishlist: {
