@@ -1,5 +1,6 @@
 import { fetchPersonGifts } from "@/app/lib/data";
 import { AddPersonGift } from "@/components/buttons";
+import Link from "next/link";
 export default async function Page({ params }: { params: { personId: string } }) {
       const { gifts } = await fetchPersonGifts(params.personId)
     return (
@@ -20,7 +21,7 @@ export default async function Page({ params }: { params: { personId: string } })
             {gifts.map((gift) => {
               return(
                 <tr key={gift.id}>
-                  <td>{gift.name}</td>
+                  <td><Link href={`/people/${params.personId}/${gift.id}`}>{gift.name}</Link></td>
                   <td>{gift.price}</td>
                   <td>{gift.url}</td>
                   <td>{gift.imageUrl}</td>
