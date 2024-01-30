@@ -104,12 +104,32 @@ export async function fetchPersonGifts ( id: string ) {
 
 // TODO: Function to fetch a Users Gift from Wishlist
 // requires userId and giftId
-export async function fetchUserGift () {
-
+export async function fetchUserGift (id: string) {
+    try{
+        const gift = prisma.gift.findUnique({
+            where: {
+                id: id,
+            }
+        })
+        return gift
+    } catch (error) {
+        console.error("Error fetching users's gift:", error);
+        throw error;
+    }
 }
 
 // TODO: Function to fetch a Persons Gift
 // requires personId and giftId
-export async function fetchPersonGift () {
-
+export async function fetchPersonGift (id: string) {
+    try{
+        const gift = prisma.gift.findUnique({
+            where: {
+                id: id,
+            }
+        })
+        return gift
+    } catch (error) {
+        console.error("Error fetching person's gift:", error);
+        throw error;
+    }
 }

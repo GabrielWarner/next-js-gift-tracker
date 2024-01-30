@@ -22,7 +22,7 @@ export async function UserWishlistTable() {
           {gifts.map((gift) => {
             return (
             <tr key={gift.id}>
-                <td>{gift.name}</td>
+                <td><Link href={`wishlist/${gift.id}`}>{gift.name}</Link></td>
                 <td>{gift.price}</td>
                 <td>{gift.url}</td>
                 <td>{gift.id}</td>
