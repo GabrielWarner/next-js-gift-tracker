@@ -1,8 +1,8 @@
-import { auth } from "../../auth";
 import { fetchUserWishlist } from "@/app/lib/data";
-import { Gift } from "@/app/lib/definitions";
 import { fetchUsersPersons } from "@/app/lib/data";
 import Link from "next/link";
+import { DeletePerson } from "./buttons";
+import { BookOpenIcon } from '@heroicons/react/24/outline';
 
 export async function UserWishlistTable() {
   const wishlist = await fetchUserWishlist();
@@ -46,7 +46,8 @@ export async function PeopleTable() {
                 <td>Image</td>
                 <td>NAME</td>
                 <td>WISHLIST</td>
-                <td>User Page</td>
+                <td>BDAY</td>
+                <td>EDIT</td>
                 <td>DELETE</td>
               </tr>
             </thead>
@@ -54,11 +55,26 @@ export async function PeopleTable() {
               {people?.map((person) => {
                 return(
                   <tr key={person.id}>
-                    <td>{person.imageUrl}</td>
-                    <td><Link href={`/people/${person.id}`}>{person.name}</Link></td>
-                    <td>wishlist icon</td>
+                    <td>
+                      <Link href={`/people/${person.id}`}>
+                        {person.imageUrl}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link href={`/people/${person.id}`}>
+                      {person.name}
+                      </Link>
+                    </td>
+                    <td>
+                      <Link href={`/people/${person.id}`}>
+                      <BookOpenIcon/>
+                      </Link>
+                    </td>
+                    <td>{person.birthday.toDateString()}</td>
                     <td>EDIT ICON</td>
-                    <td>delete icon</td>
+                    <td className="m-24">
+                      <DeletePerson id={person.id}/>
+                    </td>
                   </tr>
                 )
               })}

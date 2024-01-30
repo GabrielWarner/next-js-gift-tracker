@@ -100,6 +100,22 @@ export async function  addGiftToUserWishlist(formData: FormData) {
 
 }
 
+// TODO: Function to delete a person
+// requires personId
+export async function deletePerson ( id: string ) {
+    try {
+        const gift = await prisma.person.delete({
+            where: {
+                id: id
+            } 
+        })
+        revalidatePath('/people');
+    } catch (error) {
+        console.error("Error deleting person from database:", error);
+        throw error;
+    }
+}
+
 // TODO: Function to edit a users gift on their wishlist
 // requires userId and giftId
 export async function editUserGift () {

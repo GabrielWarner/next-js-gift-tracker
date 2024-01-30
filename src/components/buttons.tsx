@@ -1,6 +1,6 @@
 import { PencilIcon, PlusIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-
+import { deletePerson } from '@/app/lib/actions';
 export function AddPerson() {
   return (
     <Link
@@ -22,5 +22,16 @@ export function AddUserGift() {
       <span className="hidden md:block">Add Gift</span>{' '}
       <PlusIcon className="h-5 md:ml-4" />
     </Link>
+  );
+}
+
+export function DeletePerson({ id }: { id: string }) {
+  const deletePersonWithID = deletePerson.bind('null', id)
+  return (
+    <form action={deletePersonWithID}>
+      <button className="rounded-md border p-2 hover:bg-gray-100">
+        <TrashIcon className="w-5" />
+      </button>
+    </form>
   );
 }
