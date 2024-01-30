@@ -96,8 +96,52 @@ export async function  addGiftToUserWishlist(formData: FormData) {
         console.error("Error adding gift to wishlist:", error);
         throw error;
     }
+}
 
+// TODO: Function to add gift to Person
+// Requires personId and giftId
+export async function addGiftToPersonWishlist (id: string, formData: FormData) {
+    try {
+        // Find the person's wishlist
+        const personWithWishlist = await prisma.person.findUnique({
+            where: {
+                id: id
+            },
+            include: {
+                wishlist: true
+            }
+        });
 
+        if (!personWithWishlist || !personWithWishlist.wishlist) {
+            throw new Error("Wishlist not found for the person");
+        }
+
+        const { name, price, url, imageUrl } = addUserGiftForm.parse({
+            name: formData.get('name'),
+            price: formData.get('price'),
+            url: formData.get('url'),
+            imageUrl: formData.get('image')
+            });
+
+        // Create a new gift linked to the person's wishlist
+        const gift = await prisma.gift.create({
+            data: {
+                name: name,
+                price: price,
+                url: url,
+                imageUrl: imageUrl,
+                wishlistId: personWithWishlist.wishlist.id
+            }
+        });
+
+        console.log("Gift added to wishlist:", gift);
+        console.log(gift)
+        revalidatePath(`/people/${id}/add`);
+        redirect(`/people/${id}`);
+    } catch (error) {
+        console.error("Error adding gift to person:", error);
+        throw error;
+    }
 }
 
 // TODO: Function to delete a person
@@ -119,12 +163,6 @@ export async function deletePerson ( id: string ) {
 // TODO: Function to edit a users gift on their wishlist
 // requires userId and giftId
 export async function editUserGift () {
-
-}
-
-// TODO: Function to add gift to Person
-// Requires personId and giftId
-export async function addGiftToPersonWishlist () {
 
 }
 
